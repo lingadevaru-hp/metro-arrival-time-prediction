@@ -1,0 +1,11 @@
+line_name,station_order,station_name,distance_from_prev_km,avg_speed_kmph,dwell_time_min,observed_segment_time_min
+Blue Line,1,Maple Junction,0.0,0.0,1.0,0.0
+Blue Line,2,River Park,1.5,42.0,0.9,3.1
+Blue Line,3,City Hall,2.2,40.0,1.2,4.2
+Blue Line,4,Tech Square,1.1,35.0,0.8,3.1
+Blue Line,5,University,1.8,37.0,1.0,3.7
+Blue Line,6,Airport Road,3.4,50.0,1.3,5.1
+Blue Line,7,Lake View,2.0,45.0,0.7,4.0
+Blue Line,8,Industrial,2.6,43.0,0.9,4.3
+Blue Line,9,Stadium,1.4,34.0,1.1,3.4
+Blue Line,10,Terminal,2.8,48.0,0.0,4.6
