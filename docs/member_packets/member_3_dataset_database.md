@@ -1,42 +1,55 @@
 # Member 3 - Dataset / Database
 
-## Role Summary
-You are responsible for creating the dataset and database layer for reliable input handling.
+## What You Actually Built
+- Designed the dataset schema for metro stop and segment behavior.
+- Prepared the initial sample dataset for one complete line.
+- Implemented CSV loader with strong type conversion.
+- Implemented SQLite write and read operations for persistence.
+- Enforced ordered station sequencing for correct scheduling.
 
-## Data Design
+## Data Model You Should Explain
 Dataset columns:
-- `line_name`
-- `station_order`
-- `station_name`
-- `distance_from_prev_km`
-- `avg_speed_kmph`
-- `dwell_time_min`
-- `observed_segment_time_min`
+- `line_name` for multi-line support.
+- `station_order` for correct path sequence.
+- `station_name` for readable outputs.
+- `distance_from_prev_km` for travel distance input.
+- `avg_speed_kmph` for operational speed input.
+- `dwell_time_min` for station halt time.
+- `observed_segment_time_min` as supervised training target.
 
-Database design:
-- SQLite table: `metro_stops`
-- Primary key: `(line_name, station_order)`
+Database table:
+- `metro_stops`
+- Primary key `(line_name, station_order)` to prevent duplicates.
 
-## Your Owned Files (Show These)
+## Files You Own (Show in Presentation)
 - `data/metro_line.csv`
 - `src/metro_perceptron/data.py`
 
-## What You Should Explain in Review
-1. We created realistic station-level records with travel-relevant attributes.
-2. CSV is used as source data for easy editing and auditing.
-3. SQLite is used for persistent storage and future query-based workflows.
-4. Data loader enforces numeric conversion and station ordering.
+## 2-Minute Speaking Script (Ready to Read)
+"I handled dataset and database work. I first designed the schema so that every station record includes all operational variables needed for arrival prediction, such as distance, speed, and dwell time, plus observed segment time for training.  
+I created the CSV dataset as the editable source of truth and then built a data layer to load records with correct numeric types and sorted station order.  
+To support persistence and structured querying, I added SQLite integration with a `metro_stops` table and a composite primary key on line and station order.  
+This ensures reproducible inputs for training and supports future expansion when more lines or more records are added."
 
-## Exact Speaking Script
-"My part was dataset and database handling. I prepared the metro station dataset with distance, speed, dwell, and observed segment time. Then I built loader functions for CSV and SQLite so the project has both editable raw data and structured persistent storage. This ensures data consistency and reproducible model runs."
+## What to Show on Screen (Order)
+1. Open `data/metro_line.csv` and show the columns.
+2. Open `src/metro_perceptron/data.py`.
+3. Explain `load_stops_from_csv(...)` and type conversion logic.
+4. Explain `write_csv_to_sqlite(...)` and table schema.
+5. Explain `load_stops_from_db(...)` and ordered retrieval.
 
-## Demo Points
-- Open `data/metro_line.csv` and show column design.
-- Open `src/metro_perceptron/data.py` and show `load_stops_from_csv(...)` and `write_csv_to_sqlite(...)`.
+## Key Points If Panel Asks “What Exactly Did You Do?”
+- I designed and populated the dataset.
+- I implemented data ingestion and validation conversion.
+- I implemented database persistence and retrieval.
+- I guaranteed ordering and consistency for downstream modules.
 
-## Likely Questions and Answers
-Q: Why SQLite for this project?
-A: It is lightweight, portable, and enough for a prototype database layer.
+## Likely Viva Questions
+Q: Why keep both CSV and SQLite?
+A: CSV is human-editable and quick for prototyping, while SQLite provides reliable structured storage and queryability.
 
-Q: What ensures correct station sequence?
-A: We sort by `station_order` after loading.
+Q: How do you avoid sequence errors in stations?
+A: We always sort and fetch by `station_order`.
+
+Q: How will this scale to multiple metro lines?
+A: `line_name` is already part of schema and table key, so multi-line extension is straightforward.

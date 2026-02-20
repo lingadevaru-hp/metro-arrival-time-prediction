@@ -1,35 +1,52 @@
 # Khushi - UI & Documentation
 
-## Role Summary
-You are responsible for making the project understandable and demonstrable for reviewers.
+## What You Actually Built
+- Created an interactive Streamlit interface for live demo.
+- Added user controls for hyperparameters and starting departure time.
+- Displayed prediction quality metrics and schedule output in readable format.
+- Wrote clear documents for setup, architecture, and role-wise ownership.
 
-## UI and Docs Scope
-- Built an interactive Streamlit page for model tuning and schedule display.
-- Documented setup, structure, and execution steps.
-- Provided clear architecture and member-wise documentation.
+## UI/Documentation Explanation You Should Say
+UI functionality:
+- User can adjust `learning_rate`, `epochs`, and start time.
+- Model retrains and updates metrics in the same screen.
+- Predicted schedule is shown in a clear station table.
 
-## Your Owned Files (Show These)
+Documentation functionality:
+- `README.md` gives setup and run commands.
+- `docs/architecture.md` explains system flow.
+- `docs/member_work_guide.md` and packet files map ownership and presentation content.
+
+## Files You Own (Show in Presentation)
 - `ui/streamlit_app.py`
 - `README.md`
 - `docs/architecture.md`
 - `docs/member_work_guide.md`
 
-## What You Should Explain in Review
-1. UI allows changing learning rate, epochs, and start time.
-2. UI shows metrics (MAE, RMSE, R2) and station schedule table.
-3. Documentation allows any evaluator to run the project quickly.
+## 2-Minute Speaking Script (Ready to Read)
+"I handled UI and documentation. I built a Streamlit app so evaluators can interact with the system without reading code first. They can change training parameters and start departure time and immediately see updated metrics and station-wise schedule output.  
+On the documentation side, I created clear run instructions, architecture notes, and role-based guides so anyone can reproduce, understand, and present the project quickly.  
+My contribution focused on usability and communication, making the technical work accessible to both technical and non-technical reviewers."
 
-## Exact Speaking Script
-"My part was UI and documentation. I created a Streamlit interface so non-technical reviewers can test the model by changing parameters and departure time. I also wrote clear documentation for architecture, setup, and member-wise ownership, so the project is easy to evaluate and reproduce."
+## What to Show on Screen (Order)
+1. Run `streamlit run ui/streamlit_app.py`.
+2. Show sliders and start-time input.
+3. Show MAE, RMSE, R2 metrics cards.
+4. Show schedule table and explain columns.
+5. Open `README.md` and show quick-start commands.
 
-## Demo Points
-- Run: `streamlit run ui/streamlit_app.py`
-- Show controls and generated schedule table.
-- Show `README.md` quick start section.
+## Key Points If Panel Asks “What Exactly Did You Do?”
+- I made the project demo-friendly.
+- I ensured outputs are understandable to reviewers.
+- I documented how to run, validate, and explain the project.
+- I helped convert code deliverables into presentation deliverables.
 
-## Likely Questions and Answers
-Q: Why include UI in an ML project?
-A: It improves usability, stakeholder communication, and demonstration quality.
+## Likely Viva Questions
+Q: Why is UI important if CLI already exists?
+A: UI improves demonstration quality and makes model behavior easy to inspect in real time.
 
-Q: What does documentation solve?
-A: Reproducibility, onboarding, and clear ownership mapping.
+Q: What value did documentation add?
+A: It ensures reproducibility, onboarding speed, and clear ownership during evaluation.
+
+Q: Who benefits from this layer most?
+A: Reviewers, mentors, and non-developer stakeholders.

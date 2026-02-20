@@ -1,37 +1,56 @@
 # Gare Nagaraju - Architecture Design
 
-## Role Summary
-You are responsible for the system design and module flow.
+## What You Actually Built
+- Designed the complete system flow from raw data to predicted timetable.
+- Broke the project into independent modules so each team member can own one part.
+- Defined interfaces between layers to avoid tight coupling.
+- Documented architecture so reviewers can understand design decisions quickly.
 
-## Architecture Chosen
-Pipeline architecture:
-- Data Layer -> Feature Layer -> Model Layer -> Scheduler Layer -> Output Layer
+## Architecture You Should Explain
+End-to-end flow:
+- Data Layer -> Feature Layer -> Model Layer -> Scheduler Layer -> Interface Layer
 
-Why this architecture:
-- Clear separation of concerns
-- Easy testing of each layer
-- Easy future upgrades (new model, real-time feeds, API deployment)
+Layer responsibilities:
+- Data Layer: load CSV and optional SQLite persistence.
+- Feature Layer: convert stop records into segment-level training vectors.
+- Model Layer: train/predict segment minutes.
+- Scheduler Layer: accumulate minutes into actual arrival and departure times.
+- Interface Layer: CLI output and Streamlit UI.
 
-## Your Owned Files (Show These)
+Why this design:
+- Easier debugging because each layer can be tested separately.
+- Easier collaboration because ownership is clean.
+- Easier extension because model or data source can be replaced without rewriting everything.
+
+## Files You Own (Show in Presentation)
 - `docs/architecture.md`
 - `README.md`
+- `src/metro_perceptron/__init__.py`
 
-## What You Should Explain in Review
-1. Input sources are structured in a data layer (CSV and SQLite).
-2. Feature engineering is isolated from model code.
-3. Model only learns segment time, scheduler converts it into real arrival timestamps.
-4. Interface layer supports both CLI and UI usage.
+## 2-Minute Speaking Script (Ready to Read)
+"I handled architecture design for this project. I designed the system as a modular pipeline so each phase has a clear responsibility.  
+The data layer handles ingestion and storage, the feature layer transforms raw station data into learning vectors, the model layer predicts segment travel time, and the scheduler layer converts those predictions into station-wise arrival and departure times.  
+I intentionally separated these components so we can test each layer independently and easily replace parts in the future, for example replacing CSV with live API feeds or replacing the model with a more advanced algorithm.  
+This architecture made team collaboration cleaner and made the final system easier to maintain and explain."
 
-## Exact Speaking Script
-"My responsibility was architecture design. I designed a modular flow from data ingestion to final schedule prediction. We keep feature logic, model training, and schedule generation in separate modules so each part is maintainable and testable. This architecture also supports extension to APIs or real-time transport telemetry later."
+## What to Show on Screen (Order)
+1. Open `docs/architecture.md`.
+2. Explain the flow diagram line by line.
+3. Open `README.md` and show the project folder structure.
+4. Open `src/metro_perceptron/__init__.py` to show module boundaries.
 
-## Demo Points
-- Open `docs/architecture.md` and show flow steps.
-- Open `README.md` and show project structure section.
+## Key Points If Panel Asks “What Exactly Did You Do?”
+- I defined module boundaries and data flow contracts.
+- I ensured model logic and scheduling logic are decoupled.
+- I designed for maintainability, testability, and future scalability.
+- I documented the architecture for quick onboarding.
 
-## Likely Questions and Answers
-Q: Why not write everything in one script?
-A: Modular architecture reduces complexity, supports team ownership, and improves maintainability.
+## Likely Viva Questions
+Q: Why not keep everything in a single file for a small project?
+A: A modular design prevents technical debt and supports team-based development and testing.
 
-Q: How can this scale later?
-A: Replace CSV with live data source, keep same feature/model/scheduler contracts.
+Q: If live metro data comes tomorrow, what changes?
+A: Primarily the data layer changes. Feature/model/scheduler layers can remain the same.
+
+Q: Where is failure isolation in this architecture?
+A: Each layer has independent functions, so failures can be traced quickly to a specific module.

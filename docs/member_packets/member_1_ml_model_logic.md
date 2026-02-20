@@ -1,45 +1,58 @@
 # Member 1 - ML Model Logic Building
 
-## Role Summary
-You are responsible for how the prediction model works mathematically and why this model was chosen.
+## What You Actually Built
+- Defined the prediction target as `segment travel time in minutes` from previous station to current station.
+- Finalized the feature set used by the model.
+- Designed and implemented a perceptron-style linear regression training approach.
+- Added model stability features: input normalization, L2 regularization, and convergence tolerance.
 
-## Model Used
+## Model Explanation You Should Say
 We used a **Perceptron-based linear regressor** (single neuron for regression), not a classification perceptron.
 
-Core equation:
+Equation:
 - `predicted_segment_time = w1*x1 + w2*x2 + w3*x3 + w4*x4 + b`
 
-Where:
+Feature mapping:
 - `x1 = distance_from_prev_km`
 - `x2 = avg_speed_kmph`
 - `x3 = prev_station_dwell_min`
 - `x4 = runtime_min = (distance/speed)*60`
 
-Training method:
-- Gradient descent on squared error loss
-- Feature scaling (mean/std normalization)
-- Optional L2 regularization for stability
+Training:
+- Minimized squared error using gradient descent.
+- Normalized features with mean/std scaling before training.
+- Applied small L2 penalty to avoid unstable large weights.
 
-## Your Owned Files (Show These)
-- `src/metro_perceptron/model.py`
+## Files You Own (Show in Presentation)
 - `src/metro_perceptron/features.py`
+- `src/metro_perceptron/model.py`
 
-## What You Should Explain in Review
-1. We converted metro movement into a segment-time prediction problem.
-2. We engineered practical transport features from business inputs.
-3. We trained a linear neuron because scheduling is mostly linear with these inputs.
-4. We used normalized features so training converges fast and reliably.
+## 2-Minute Speaking Script (Ready to Read)
+"I handled ML model logic building. First, I converted the business problem into a supervised regression task where each training sample is one metro segment and the target is segment travel time in minutes.  
+I designed the feature vector using distance, average speed, previous station dwell time, and a derived runtime feature `(distance/speed)*60`. This gives both operational and physics-based signals.  
+For modeling, I implemented a perceptron-style linear regressor. The model learns weights using gradient descent on squared error loss. To make training stable, I added feature scaling and optional L2 regularization, and I stop when loss improvement becomes very small.  
+This model is simple, fast, and interpretable, which is useful for transportation scheduling where we need understandable decisions, not a black-box model."
 
-## Exact Speaking Script
-"My part was model logic building. We used a perceptron-style linear regressor to predict travel time between two stations. The feature vector uses distance, speed, previous dwell, and computed runtime. The model learns weights with gradient descent, and we included feature scaling and regularization for stable learning. This gives an interpretable and fast model suitable for operational metro scheduling."
+## What to Show on Screen (Order)
+1. Open `src/metro_perceptron/features.py`.
+2. Show `build_feature_vector(...)` and explain each feature.
+3. Show `build_training_data(...)` and explain segment-level formulation.
+4. Open `src/metro_perceptron/model.py`.
+5. Show `fit(...)` for scaling + gradient descent.
+6. Show `predict_one(...)` for inference formula.
 
-## Demo Points
-- Open `src/metro_perceptron/features.py` and show `build_feature_vector(...)`.
-- Open `src/metro_perceptron/model.py` and show `fit(...)` and `predict_one(...)`.
+## Key Points If Panel Asks “What Exactly Did You Do?”
+- I defined problem framing and target variable.
+- I selected and engineered model features.
+- I implemented model training logic and prediction logic.
+- I added training safeguards for stable convergence.
 
-## Likely Questions and Answers
-Q: Why linear model?
-A: Inputs are physically related to time in a near-linear way, so linear regression is a strong baseline and easy to interpret.
+## Likely Viva Questions
+Q: Why did you choose linear perceptron instead of deep learning?
+A: The relationship between travel time, distance, speed, and dwell is mostly linear at baseline, so linear models are strong, explainable, and fast for this scope.
 
-Q: Why include runtime feature if distance and speed already exist?
-A: It gives the model a direct physics-inspired signal and improves fit quality.
+Q: Why normalize features?
+A: Features are on different scales, and normalization makes gradient descent stable and faster.
+
+Q: Why use both speed and runtime feature?
+A: Runtime adds a direct domain formula signal and improves fit consistency.
