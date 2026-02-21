@@ -1,4 +1,4 @@
-# Member 6 - Testing & Validation
+# Lingadevaru - Testing & Validation
 
 ## What You Actually Built
 - Created unit tests for feature generation correctness.
