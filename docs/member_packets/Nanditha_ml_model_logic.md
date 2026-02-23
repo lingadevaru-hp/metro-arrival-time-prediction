@@ -1,4 +1,4 @@
-# Member 1 - ML Model Logic Building
+Nanditha - ML Model Logic Building
 
 ## What You Actually Built
 - Defined the prediction target as `segment travel time in minutes` from previous station to current station.
